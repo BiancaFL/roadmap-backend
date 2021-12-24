@@ -1,9 +1,6 @@
 /* eslint-disable prefer-destructuring */
 import ExcelJS from "exceljs";
-import fs from "fs";
 import path from "path";
-
-const template = "/asset/template_DRE.xlsx";
 
 interface IConfig {
     type: string;

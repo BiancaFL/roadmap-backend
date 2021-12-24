@@ -10,5 +10,8 @@ app.use(express.json());
 app.post("/config/upload", UploadConfig);
 app.post("/config/download", DownloadConfig);
 app.post("/dre", ConvertDRE);
+app.get("/", (_, response) => {
+    return response.json({ message: "OK" });
+});
 
 app.listen(3333);

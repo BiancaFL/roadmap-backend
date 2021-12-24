@@ -1,5 +1,4 @@
 import ExcelJS from "exceljs";
-import { Writable } from "stream";
 
 interface IConfig {
     type: string;
@@ -26,19 +25,6 @@ class DownloadConfigFileService {
         }
 
         return workbook.xlsx.writeBuffer();
-
-        const chunks: Buffer[] = [];
-
-        return workbook.xlsx
-            .write(
-                new Writable({
-                    write: (chunk, _, cb) => {
-                        chunks.push(chunk as Buffer);
-                        cb();
-                    },
-                })
-            )
-            .then(() => Buffer.concat(chunks));
     }
 }
 
