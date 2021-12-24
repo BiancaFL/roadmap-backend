@@ -10,7 +10,6 @@ app.use((req, res, next) => {
     app.use(cors());
     next();
 });
-app.use(cors());
 app.use(express.json());
 
 app.post("/config/upload", UploadConfig);
