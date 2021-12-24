@@ -15,4 +15,4 @@ app.post("/dre", routes_1.ConvertDRE);
 app.get("/", (_, response) => {
     return response.json({ message: "OK" });
 });
-app.listen(3333);
+app.listen(process.env.PORT || 3000);

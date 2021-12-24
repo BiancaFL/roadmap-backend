@@ -14,4 +14,4 @@ app.get("/", (_, response) => {
     return response.json({ message: "OK" });
 });
 
-app.listen(process.env.PORT || 3333);
+app.listen(process.env.PORT || 3000);
