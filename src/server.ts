@@ -6,6 +6,7 @@ import { DownloadConfig, UploadConfig, ConvertDRE } from "./routes";
 const app = express();
 const corsOptions = {
     origin: "https://roadmap-frontend.herokuapp.com",
+    credentials: true,
 };
 
 app.use(cors(corsOptions));
