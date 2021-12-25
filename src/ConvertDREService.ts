@@ -94,7 +94,7 @@ class UploadConfigFileService {
         }
 
         // get the base table from DRE template
-        const dirPath = `${process.env.PWD}/assets/template_DRE.xlsx`;
+        const dirPath = `${process.env.PWD}/src/assets/template_DRE.xlsx`;
         console.log(dirPath);
 
         const DRE = new ExcelJS.Workbook();
