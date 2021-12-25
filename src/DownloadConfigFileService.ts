@@ -10,9 +10,9 @@ class DownloadConfigFileService {
         const workbook = new ExcelJS.Workbook();
 
         workbook.created = new Date();
-        workbook.creator = "Zak";
+        workbook.creator = "Roadmap Software";
 
-        const worksheet = workbook.addWorksheet("DEPARA");
+        const worksheet = workbook.addWorksheet("DE PARA");
         const { map } = config;
 
         let i = 1;

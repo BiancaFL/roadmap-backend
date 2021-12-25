@@ -2,6 +2,8 @@
 import ExcelJS from "exceljs";
 import path from "path";
 
+import { AppError } from "./errors/AppError";
+
 interface IConfig {
     type: string;
     map: { [key: string]: string };
@@ -63,6 +65,12 @@ class UploadConfigFileService {
         const buffer = Buffer.from(rawBuffer, "base64");
         const rawWorkbook = new ExcelJS.Workbook();
         await rawWorkbook.xlsx.load(buffer);
+
+        if (!rawWorkbook)
+            throw new AppError(
+                500,
+                "Não foi possível carregar o arquivo de DRE selecionado. Verifique o formato do arquivo e tente novamente."
+            );
         const rawDRE = rawWorkbook.getWorksheet(1);
         const { type, map } = config;
 

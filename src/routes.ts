@@ -7,7 +7,7 @@ import UploadConfigFileService from "./UploadConfigFileService";
 export async function DownloadConfig(request: Request, response: Response) {
     const { config } = request.body;
     const buffer = await DownloadConfigFileService.execute(config);
-    return response.json(buffer);
+    return response.status(200).json(buffer);
 }
 
 export async function UploadConfig(request: Request, response: Response) {
@@ -19,5 +19,5 @@ export async function UploadConfig(request: Request, response: Response) {
 export async function ConvertDRE(request: Request, response: Response) {
     const { rawBuffer, config } = request.body;
     const DREBuffer = await ConvertDREService.execute(rawBuffer, config);
-    return response.json(DREBuffer);
+    return response.status(220).json(DREBuffer);
 }
