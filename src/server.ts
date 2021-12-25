@@ -5,6 +5,8 @@ import "express-async-errors";
 import { AppError } from "./errors/AppError";
 import { DownloadConfig, UploadConfig, ConvertDRE } from "./routes";
 
+process.env.PWD = process.cwd();
+
 const app = express();
 const corsOptions = {
     origin: "https://roadmap-frontend.herokuapp.com",
