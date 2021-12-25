@@ -94,7 +94,7 @@ class UploadConfigFileService {
         }
 
         // get the base table from DRE template
-        const dirPath = path.join(__dirname, "/assets");
+        const dirPath = path.join(`${process.env.PWD}/assets`);
 
         const DRE = new ExcelJS.Workbook();
         await DRE.xlsx.readFile(path.resolve(dirPath, "template_DRE.xlsx"));
