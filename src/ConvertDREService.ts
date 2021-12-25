@@ -94,10 +94,11 @@ class UploadConfigFileService {
         }
 
         // get the base table from DRE template
-        const dirPath = path.join(`${process.env.PWD}/assets`);
+        const dirPath = `${process.env.PWD}/assets/template_DRE.xlsx`;
+        console.log(dirPath);
 
         const DRE = new ExcelJS.Workbook();
-        await DRE.xlsx.readFile(path.resolve(dirPath, "template_DRE.xlsx"));
+        await DRE.xlsx.readFile(dirPath);
         const base = DRE.getWorksheet("Base");
         console.log(path.resolve(dirPath, "template_DRE.xlsx"));
         // "A1:C89",
