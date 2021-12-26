@@ -1,6 +1,7 @@
 /* eslint-disable prefer-destructuring */
 import ExcelJS from "exceljs";
 
+import db from "./database";
 import { AppError } from "./errors/AppError";
 
 interface IConfig {
@@ -58,8 +59,8 @@ function parseBillPlan(map, rawBillPlan: string): string {
     return map[key];
 }
 
-class UploadConfigFileService {
-    async execute(rawBuffer, config: IConfig) {
+class ConvertDREService {
+    async execute(rawBuffer, configType: string) {
         // loads raw DRE buffer
         const buffer = Buffer.from(rawBuffer, "base64");
         const rawWorkbook = new ExcelJS.Workbook();
@@ -71,6 +72,12 @@ class UploadConfigFileService {
                 "Não foi possível carregar o arquivo de DRE selecionado. Verifique o formato do arquivo e tente novamente."
             );
         const rawDRE = rawWorkbook.getWorksheet(1);
+
+        const configs: IConfig[] = db.getData("/configs");
+
+        const config = configs.find((c) => {
+            return c.type === configType;
+        });
         const { type, map } = config;
 
         // iterates rawDRE and populates translatedData
@@ -84,8 +91,6 @@ class UploadConfigFileService {
                 const date = parseDate(type, rawDate);
                 const billPlan = parseBillPlan(map, rawBillPlan);
 
-                // console.log(`${rawDate} ${rawBillPlan} ${date} ${billPlan}`);
-
                 if (date && billPlan) {
                     translatedData.push([billPlan, date, value]);
                 }
@@ -94,7 +99,6 @@ class UploadConfigFileService {
 
         // get the base table from DRE template
         const dirPath = `${process.env.PWD}/src/assets/template_DRE.xlsx`;
-        console.log(dirPath);
 
         const DRE = new ExcelJS.Workbook();
         await DRE.xlsx.readFile(dirPath);
@@ -113,4 +117,4 @@ class UploadConfigFileService {
     }
 }
 
-export default new UploadConfigFileService();
+export default new ConvertDREService();

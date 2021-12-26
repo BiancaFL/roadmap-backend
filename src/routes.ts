@@ -19,8 +19,8 @@ export async function UploadConfig(request: Request, response: Response) {
 }
 
 export async function ConvertDRE(request: Request, response: Response) {
-    const { rawBuffer, config } = request.body;
-    const DREBuffer = await ConvertDREService.execute(rawBuffer, config);
+    const { rawBuffer, configType } = request.body;
+    const DREBuffer = await ConvertDREService.execute(rawBuffer, configType);
     return response.status(200).json(DREBuffer);
 }
 

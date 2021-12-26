@@ -1,5 +1,5 @@
 import cors from "cors";
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import "express-async-errors";
 
 import { AppError } from "./errors/AppError";
@@ -15,7 +15,7 @@ process.env.PWD = process.cwd();
 
 const app = express();
 const corsOptions = {
-    origin: "https://roadmap-frontend.herokuapp.com",
+    origin: "http://localhost:3000",
     credentials: true,
 };
 
@@ -32,14 +32,19 @@ app.get("/", (_, response) => {
 });
 
 // eslint-disable-next-line no-undef
-app.use((err: Error, request: Request, response: Response) => {
-    if (err instanceof AppError) {
-        return response.status(err.statusCode).json({ message: err.message });
+app.use(
+    // eslint-disable-next-line no-unused-vars
+    (err: Error, request: Request, response: Response, _next: NextFunction) => {
+        if (err instanceof AppError) {
+            return response
+                .status(err.statusCode)
+                .json({ message: err.message });
+        }
+
+        return response.status(500).json({
+            message: `Internal server error - ${err.message}`,
+        });
     }
+);
 
-    return response.status(500).json({
-        message: `Internal server error - ${err.message}`,
-    });
-});
-
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3333);

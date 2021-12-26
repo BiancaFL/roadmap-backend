@@ -7,9 +7,14 @@ interface IConfig {
 
 class GetConfigsService {
     execute() {
-        const configs: IConfig[] = db.getData("/configs");
+        let configs = [] as IConfig[];
+        try {
+            configs = db.getData("/configs");
 
-        return configs;
+            return configs;
+        } catch (e) {
+            return configs;
+        }
     }
 }
 
