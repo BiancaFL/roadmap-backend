@@ -101,8 +101,6 @@ class UploadConfigFileService {
         await DRE.xlsx.readFile(dirPath);
         const base = DRE.getWorksheet("Base");
         console.log(path.resolve(dirPath, "template_DRE.xlsx"));
-        // "A1:C89",
-        // return DRE.xlsx.writeBuffer();
 
         // populates baseTable and returns final buffer
         let r = 1;

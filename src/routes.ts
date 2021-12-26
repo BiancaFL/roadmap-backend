@@ -5,8 +5,8 @@ import DownloadConfigFileService from "./DownloadConfigFileService";
 import UploadConfigFileService from "./UploadConfigFileService";
 
 export async function DownloadConfig(request: Request, response: Response) {
-    const { config } = request.body;
-    const buffer = await DownloadConfigFileService.execute(config);
+    const { configType } = request.body;
+    const buffer = await DownloadConfigFileService.execute(configType);
     return response.status(200).json(buffer);
 }
 

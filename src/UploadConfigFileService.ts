@@ -1,5 +1,6 @@
 import ExcelJS from "exceljs";
 
+import db from "./database";
 import { AppError } from "./errors/AppError";
 
 class UploadConfigFileService {
@@ -16,15 +17,19 @@ class UploadConfigFileService {
 
         const worksheet = workbook.getWorksheet(1);
 
-        const config = { type, map: {} };
+        const newConfig = { type, map: {} };
 
         for (let i = 2 as number; i <= worksheet.rowCount; i++) {
             const key = worksheet.getCell(i, 1).value as string;
             const { value } = worksheet.getCell(i, 2);
-            config.map[key] = value;
+            newConfig.map[key] = value;
         }
 
-        return config;
+        db.push("/configs", [newConfig], false);
+
+        const configs = db.getData("/configs");
+
+        return configs;
     }
 }
 

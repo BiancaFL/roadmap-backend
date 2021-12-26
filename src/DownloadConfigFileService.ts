@@ -1,14 +1,21 @@
 import ExcelJS from "exceljs";
 
+import db from "./database";
+
 interface IConfig {
     type: string;
     map: { [key: string]: string };
 }
 
 class DownloadConfigFileService {
-    async execute(config: IConfig) {
-        const workbook = new ExcelJS.Workbook();
+    async execute(configType: string) {
+        const configs: IConfig[] = db.getData("/configs");
 
+        const config = configs.find((c) => {
+            return c.type === configType;
+        });
+
+        const workbook = new ExcelJS.Workbook();
         workbook.created = new Date();
         workbook.creator = "Roadmap Software";
 
