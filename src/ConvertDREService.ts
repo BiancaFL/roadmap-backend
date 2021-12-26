@@ -1,6 +1,5 @@
 /* eslint-disable prefer-destructuring */
 import ExcelJS from "exceljs";
-import path from "path";
 
 import { AppError } from "./errors/AppError";
 
@@ -100,7 +99,6 @@ class UploadConfigFileService {
         const DRE = new ExcelJS.Workbook();
         await DRE.xlsx.readFile(dirPath);
         const base = DRE.getWorksheet("Base");
-        console.log(path.resolve(dirPath, "template_DRE.xlsx"));
 
         // populates baseTable and returns final buffer
         let r = 1;
