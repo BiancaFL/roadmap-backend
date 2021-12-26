@@ -3,7 +3,13 @@ import express, { Request, Response } from "express";
 import "express-async-errors";
 
 import { AppError } from "./errors/AppError";
-import { DownloadConfig, UploadConfig, ConvertDRE } from "./routes";
+import {
+    DownloadConfig,
+    UploadConfig,
+    ConvertDRE,
+    GetConfigs,
+    DeleteConfig,
+} from "./routes";
 
 process.env.PWD = process.cwd();
 
@@ -18,7 +24,9 @@ app.use(express.json());
 
 app.post("/config/upload", UploadConfig);
 app.post("/config/download", DownloadConfig);
+app.get("/configs", GetConfigs);
 app.post("/dre", ConvertDRE);
+app.delete("/config", DeleteConfig);
 app.get("/", (_, response) => {
     return response.json({ message: "OK" });
 });
