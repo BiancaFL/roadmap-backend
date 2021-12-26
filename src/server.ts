@@ -15,7 +15,7 @@ process.env.PWD = process.cwd();
 
 const app = express();
 const corsOptions = {
-    origin: "http://localhost:3000",
+    origin: "https://roadmap-frontend.herokuapp.com",
     credentials: true,
 };
 
